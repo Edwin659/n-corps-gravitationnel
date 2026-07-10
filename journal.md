@@ -53,12 +53,59 @@ Conformément aux consignes de la section 5, mes paramètres ont été dérivés
 
 ### 2. Semaine 2
 
+- **Liste des tâches :**
+  - [ ] N corps directs
+  - [ ] Validation sur au moins 4 planètes (A3)
+  - [ ] Nuages synthétiques + Benchmark brute force + Régression
+log-log (A4, fin du socle)
+  - [ ] Mise à niveau structures récursives
+si besoin
+
+- **Travail réalisé par jour :**
+
+
 ### 3. Semaine 3
+
+- **Liste des tâches :** Quadtree
+  - [ ] Construction
+  - [ ] Tests unitaires
+  - [ ] Cas dégénéré (B1)
+  - [ ] Calcul de force Barnes-Hut
+  - [ ] Validation de précision à θ=0, θ=0.5 , θ_perso (B2, coeur du sujet)
+
+- **Travail réalisé par jour :**
 
 ### 4. Semaine 4
 
+- **Liste des tâches :**
+  - [ ] Couplage BH + leapfrog
+  - [ ] Campagne de mesures
+  - [ ] N de
+croisement (B3, fin du coeur algorithmique)
+  - [ ] Rapport
+  - [ ] Script
+de reproductibilité
+  - [ ] Préparation soutenance
+
+- **Travail réalisé par jour :**
+
 ### 5. Semaine 5
+
+- **Liste des tâches :**
+  - [ ]
+
+- **Travail réalisé par jour :**
 
 ### 6. Semaine 6
 
+- **Liste des tâches :**
+  - [ ]
+
+- **Travail réalisé par jour :**
+
 ### 7. Semaine 7
+
+- **Liste des tâches :**
+  - [ ]
+
+- **Travail réalisé par jour :**
