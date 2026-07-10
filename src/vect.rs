@@ -1,4 +1,4 @@
-use std::ops::{Add, Sub};
+use std::ops::{Add, Sub, Mul};
 
 #[derive(Debug, Copy, Clone, PartialEq)]
 pub struct Vecteur2D {
@@ -41,6 +41,17 @@ impl Sub for Vecteur2D {
             x: self.x - other.x,
             y: self.y - other.y,
         }
+    }
+}
+
+impl Mul<f64> for Vecteur2D {
+    type Output = Self;
+
+    fn mul(self, scalaire: f64) -> Self {
+        Vecteur2D::new(
+            self.x * scalaire,
+            self.y * scalaire
+        )
     }
 }
 
