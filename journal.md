@@ -51,9 +51,14 @@ Conformément aux consignes de la section 5, mes paramètres ont été dérivés
     - Mise à jour du journal.md
     - Commit de tous le travail effectué les derniers jours
 
+  - **11/07 :**
+    - Tentative de l'auto-diagnostique A2
+      - Comprendre les consignes demandés
+
 ### 2. Semaine 2
 
 - **Liste des tâches :**
+  - [ ] Deux corps mobiles + leapfrog + orbite personnalisée (A2)
   - [ ] N corps directs
   - [ ] Validation sur au moins 4 planètes (A3)
   - [ ] Nuages synthétiques + Benchmark brute force + Régression
@@ -62,7 +67,17 @@ log-log (A4, fin du socle)
 si besoin
 
 - **Travail réalisé par jour :**
+  - **13/07 :**
+    - Tentative de l'auto-diagnostique A2
+      - Comprendre les consignes demandés
+      - Ebauche de solution
 
+  - **14/07 :**
+    - Tentative de l'auto-diagnostique A2
+      - Aération du main en créant des fonction pour calculer l'énergie totale, les intégrations Leapfrog et Euler et les accélérations
+      - Solution de l'auto diagnostique A2
+    - Sauvegarde des graphique dans le dossier image
+    - 
 
 ### 3. Semaine 3
 
@@ -109,3 +124,36 @@ de reproductibilité
   - [ ]
 
 - **Travail réalisé par jour :**
+
+## Auto-diagnostique
+
+### A1
+
+- **Tests unitaires vectoriels**
+  - Test passé avec cargo test ✅
+- **Vitesse initiale calculée**
+  - 2π ≈ 6,283 UA/an ✅
+  - Test passé avec cargo test ✅
+- **Trajectoire tracée**
+  - Visuellement un cercle ✅
+  - **Période mesurée**
+  - Tolérance entre 0 et 1 ans = 0.06573445584 = 6.5735% < 10% ✅
+  - (1.0060,0,0,1.0078801592466042,0.00041741704146491495
+     0     ,0,0,1                 ,0.)
+  - 0.6%
+
+### A2
+
+- **Apoastre mesuré proche de a(1+e_perso) , périastre mesuré proche de a(1-e_perso)**
+  - Test passé avec cargo test ✅
+- **Propriété remarquable à vérifier**
+  - Période proche d'un an ✅
+- **Dérive d'énergie relative**
+  - Pour Euler :
+    - Au bout de 50 tours/années : |E(t)-E(0)|/|E(0)| = 0.6145230602688544
+    - Croissante ✅
+  - Pour Leapfrog :
+    - Au bout de 50 tours/années : |E(t)-E(0)|/|E(0)| = Variation de 0 à 1.02933940517e-05 <1%
+    - Oscillement ✅
+  - **Période mesurée**
+  - Tolérance entre 0 et 1 ans = 0.06573445584 = 6.5735% < 10% ✅

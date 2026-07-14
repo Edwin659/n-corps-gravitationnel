@@ -1,23 +1,24 @@
-// On déclare le fichier perso.rs comme étant un module de notre projet
+// On déclare les fichiers comme étant des modules de notre projet
+mod calcul;
+mod lancement_py;
 mod perso;
 mod vect;
-mod lancement_py;
 
-use vect::Vecteur2D;
-use std::fs::File;
-use std::io::Write;
 use std::f64::consts::PI;
 
+use crate::calcul::Methode::EulerFixe;
+// use crate::calcul::Astre;
+// use crate::calcul::calculer_energie_totale;
+// use crate::calcul::etape_leapfrog;
+use crate::calcul::simulation;
 use crate::lancement_py::lancer_graphique;
+//use crate::vect::Vecteur2D;
+use crate::calcul::Methode::Euler;
+use crate::calcul::Methode::Leapfrog;
 
 fn main() {
-    let mon_email = "gwennaelle.airo-farulla@isen.yncrea.fr"; 
-    const G:f64 = 4.0 * PI * PI; // G = 4π²
-    let mut r:f64 =1.0; // Distance Terre-Soleil
-    const MS:f64=1.0; //Masse du Soleil = 1
-
-    // Conditions initiales de la Terre
-    let mut pos_terre = Vecteur2D::new(1.0, 0.0); // À 1 UA sur l'axe X
+    let mon_email = "gwennaelle.airo-farulla@isen.yncrea.fr";
+    const G: f64 = 4.0 * PI * PI; // G = 4π²
 
     // On appelle la fonction en précisant qu'elle vient du module 'perso'
     let (seed, e_perso, theta_perso) = perso::calculer_parametres_perso(mon_email);
@@ -31,42 +32,34 @@ fn main() {
     println!("theta_perso   : {:.2}", theta_perso);
     println!("==================================================");
 
-    //On calcule la vitesse initiale v 
-    let v = (G * MS/r).sqrt();
-    println!("Vitesse initiale : {:.3}", v);
-    let mut vit_terre = Vecteur2D::new(0.0, v); // Vitesse perpendiculaire (axe Y)
+    // Paramètres temporels
+    let dt = 0.0001;
+    let temps_tot = 1.1;
 
-    //Temps
-    let dt =0.0001; //moins de marge d'erreur
-    let temps_tot =1.5;
-    //let mut t=0.0;
-    // On calcule le nombre total d'étapes nécessaires
-    let nb_etapes = (temps_tot / dt) as usize;
+    //Étape A1 - Un corps en orbite, Euler explicite
+    //Mettre dt dans simualtion à 2.0
+    simulation("csv/trajectoire_euler_fixe.csv", e_perso, G, dt, temps_tot, EulerFixe);
+    println!("Simulation terminée ! Les données ont été sauvegardées dans leurs fichiers respectives'.");
+    //Graphique Euler
+    lancer_graphique("src/graphique.py", Some("euler"));
 
-    // On crée un fichier csv à la racine du projet
-    let mut fichier = File::create("trajectoire.csv").expect("Impossible de créer le fichier CSV");
-    // Écriture de l'en-tête du CSV
-    writeln!(fichier, "temps,x,y").unwrap();
+    // // Étape A2 - Deux corps mobiles, leapfrog, orbite personnalisée
+    // simulation("csv/trajectoire_euler.csv", e_perso, G, dt, temps_tot, Euler);
+    // println!("-> Euler explicite terminé.");
+    // simulation("csv/trajectoire_leapfrog.csv", e_perso, G, dt, temps_tot, Leapfrog);
+    // println!("-> Leapfrog terminé.");
+    // //Graphique Leapfrog
+    // lancer_graphique("src/graphique.py", Some("leapfrog"));
+    // // Auto-diagnostique A2 dérive d'énergie relative 
+    // // Mettre temps_tot dans simualtion à 50.0
+    // lancer_graphique("src/graphique_derive_energie.py", None);
 
-    for step in 0..nb_etapes{
-        let t = (step as f64) *dt;
-writeln!(fichier, "{:.4},{},{}", t, pos_terre.x, pos_terre.y).unwrap();
-
-        //On calcule la distance entre la Terre et le Soleil
-        r= pos_terre.norme();
-
-        //On calcule l'accélération et son vecteur subis par la Terre
-        let acceleration = -(G*MS)/r.powi(3);
-        let vect_acceleration = pos_terre * acceleration;
-
-        //Euler explicite
-        vit_terre = vit_terre + (vect_acceleration *dt);
-        pos_terre = pos_terre + (vit_terre *dt);
-
-
-        //On ittére le temps
-        //t+= dt;
-    } 
-    println!("Simulation terminée ! Les données ont été sauvegardées dans 'trajectoire.csv'.");
-    lancer_graphique();
 }
+//     const MME: f64 = 1.660e-7; // Masse de Mercure
+//     const MV: f64 = 2.447e-6; // Masse de Vénus
+//     const MT: f64 = 3.003e-6; // Masse de Terre
+//     const MMA: f64 = 3.213e-7; // Masse de Mars
+//     const MJ: f64 = 9.543e-4; // Masse de Jupiter
+//     const MSA: f64 = 2.857e-4; // Masse de Saturne
+//     const MU: f64 = 4.365e-5; // Masse de Uranus
+//     const MN: f64 = 5.150e-5; // Masse de Neptune
